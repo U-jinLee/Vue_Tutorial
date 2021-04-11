@@ -6,7 +6,7 @@
     <div class="white-bg">
       <h4>상세페이지</h4>
       <p>상세페이지 내용</p>
-      <button @click="modalOpenState = 0">닫기</button>
+      <button @click="modalOpenState =0">닫기</button>
     </div>
   </div>
   <div class="menu">
@@ -19,13 +19,14 @@
     <a v-for="(a,i) in menu" :key="i">{{a}}</a>
   </div>
 
-    <h3 :style="스타일">원룸샵</h3>
-  <div v-for="(a,i) in product" :key="i">
+    <h3 :style="스타일">강다방</h3>
+  <div v-for="(a,i) in oneRoomData" :key="i">
     <!--html 속성 또한 데이터바인딩이 가능하다. style 앞에 ':'을 사용해 준다.-->
-    <img src="./assets/room0.jpg" class="room_img">
-    <h4 @click="modalOpenState = 1">{{a.name}}</h4>    
-    <p> {{a.price}}만원</p>
-    <button v-on:click="a.reportCount+=1">허위매물 신고</button><span>신고: {{a.reportCount}}</span>
+    <!--"'./assets/room'+1+'.jpg/'"-->
+    <img :src="oneRoomData[i].image" class="room_img">
+    <h4 @click="modalOpenState = 1">{{oneRoomData[i].title}}</h4>    
+    <p> {{oneRoomData[i].price}}</p>
+    <!-- <button v-on:click="a.reportCount+=1">허위매물 신고</button><span>신고: {{a.reportCount}}</span> -->
   </div>
   <!-- <div>
     <h4>{{product[1]}}</h4>    
@@ -38,18 +39,23 @@
 </template>
 <!-- 자바 스크립트 공간 -->
 <script>
+/*작명 이름은 상관이 없음 */
+// import apple from './assets/oneRoom.js';
+// import {apple, apple2} from './assets/oneRoom.js';
+import homeData from './assets/oneRoom.js';
 
 export default {
   name: 'App',
   // data() = state 
   data(){
     return{
+      oneRoomData : homeData,
       /*1.UI의 현재 상태를 데이터로 저장 */
       modalOpenState : 0,
       /*데이터 보관함:데이터는 object로 받아주자*/
-      roomNum : ["./assets/room0.jpg", "./assets/room1.jpg", "./assets/room2.jpg"],
+      roomNum : ["0", "1", "2"],
       price1 : [150, 45, 65],
-      스타일 : 'color:red',
+      스타일 : 'color:black',
       /*data 또다른 활용방법 */
       product : [
         {name:'역삼동 원룸',price: 150, reportCount :0},
@@ -90,7 +96,7 @@ div{
   padding: 20px;
 }
 .room_img{
-  width: 80%;
+  width: 50%;
   margin-top: 20px;
 }
 #app {
